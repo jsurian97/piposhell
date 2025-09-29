@@ -89,13 +89,11 @@ int	heredoc_collect_lines(t_red *red, t_heredoc_ctx *ctx)
 			return (heredoc_cleanup(ctx->fd_pipe, NULL, -1));
 		if (ft_strlen(line) == ctx->delim_len
 			&& !ft_strncmp(line, red->word, ctx->delim_len))
-		{
-			free(line);
 			break ;
-		}
 		if (heredoc_expand_line(red, &line, ctx->envp, ctx->exit_status))
 			return (heredoc_cleanup(ctx->fd_pipe, NULL, 1));
 		heredoc_write_and_free(ctx->fd_pipe[1], line);
 	}
+	free(line);
 	return (0);
 }
