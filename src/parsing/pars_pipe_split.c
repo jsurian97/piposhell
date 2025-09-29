@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 13:44:11 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/28 03:37:38 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 22:21:47 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,6 @@ int	pars_pipe_check(t_list *lst_current, t_pars_data *data)
 	}
 	return (0);
 }
-
-//pas obligatoire mais + secure
-//void	pars_pipe_remove(t_list *lst_lst_current)
-//{
-//	return ;
-//	t_list	*lst_current;
-//	t_list	*lst_prev;
-//
-//	while (lst_lst_current)
-//	{
-//		lst_current = lst_lst_current->lst;
-//		lst_prev = NULL;
-//		while (lst_current)
-//		{
-//			if (is_pipe(lst_current))
-//			{
-//				lst_prev->next = NULL;
-//				ft_lstdelone(lst_current, del_token);
-//			}
-//			lst_prev = lst_current;
-//			lst_current = lst_current->next;
-//		}
-//		lst_lst_current = lst_lst_current->next;
-//	}
-//}
 
 int	pars_pipe_split(t_pars_data *data)
 {

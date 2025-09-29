@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:47:01 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:22:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 21:00:39 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	expand_str_handle_quote(char *str, t_expand_view *view)
 		view->quote = 0;
 	fragment = ft_substr(str, view->i, 1);
 	view->newstr = ft_strjoin_free(view->newstr, fragment);
+	free(fragment);
 	view->i++;
 }
 
@@ -99,6 +100,7 @@ char	*expand_str(char *str, char **envp, int last_status)
 		else
 			fragment = ft_substr(str, v.i++, 1);
 		v.newstr = ft_strjoin_free(v.newstr, fragment);
+		free(fragment);
 	}
 	free(str);
 	return (v.newstr);

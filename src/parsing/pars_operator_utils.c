@@ -40,6 +40,7 @@ static int	add_node_op(char *str, t_utils_op *u, int size)
 	new_node = ft_lstnew(token);
 	if (!new_node)
 	{
+		free(token->str);
 		free(token);
 		return (1);
 	}
@@ -96,7 +97,11 @@ t_list	*lst_str_split(char *str)
 		if (lst_split_try_patterns(str, &u))
 		{
 			if (!u.i_continue)
+			{
+				if (u.list_head)
+					ft_lstclear(&u.list_head, del_token);
 				return (NULL);
+			}
 			continue ;
 		}
 		if (!u.i_continue)

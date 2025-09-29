@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_metacar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsurian42 <jsurian@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:35:42 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 15:07:27 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/09/29 21:00:39 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	add_node_entry(char *str, t_token_view *v, t_pars_data *data)
 	new_node = ft_lstnew(token);
 	if (new_node == NULL)
 	{
-		free(token);
 		free(token->str);
+		free(token);
 		return (1);
 	}
 	if (!data->lst_token)

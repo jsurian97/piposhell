@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:32:39 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:22:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 22:21:25 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	exec_cleaning(t_exec_data *data)
 {
 	exec_cleanup_heredocs(data);
+	exec_cleanup_fd(data);
 	ft_lstclear(&data->lst_simple_cmd, del_lst_scmd);
 }
 

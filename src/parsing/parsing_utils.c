@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 10:30:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 15:08:24 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/09/29 21:09:20 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*parsing_get_line(t_shell *shell)
 {
 	char	*line;
 
+	g_signal_received = 0;
 	line = read_shell_line(shell);
 	if (line == NULL)
 		exit(shell->last_exit_status);
@@ -49,6 +50,8 @@ char	*parsing_get_line(t_shell *shell)
 	{
 		shell->last_exit_status = 128 + SIGINT;
 		g_signal_received = 0;
+		free(line);
+		return (ft_strdup(""));
 	}
 	return (line);
 }
@@ -58,6 +61,8 @@ int	parsing_handle_line(t_shell *shell, char *line)
 	if (line[0] == '\0')
 	{
 		free(line);
+		if (shell->last_exit_status == 128 + SIGINT)
+			return (1);
 		return (1);
 	}
 	if (shell->is_interactive)

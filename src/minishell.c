@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 15:46:33 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 13:55:11 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 21:00:39 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ int	shell_init(t_shell *shell, char **envp)
 	shell->stdout_isatty = isatty(STDOUT_FILENO);
 	shell_lvl = ft_atoi(ft_get_env_value(shell->envp, "SHLVL"));
 	shell_lvl++;
-	temp = update_env_var(shell->envp, "SHLVL", ft_itoa(shell_lvl));
+	char *shlvl_str = ft_itoa(shell_lvl);
+	temp = update_env_var(shell->envp, "SHLVL", shlvl_str);
+	free(shlvl_str);
 	if (!temp)
 	{
 		ft_split_free(shell->envp);
 		return (1);
 	}
+	shell->envp = temp;
 	return (0);
 }
 

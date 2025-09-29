@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:36:56 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 15:07:52 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/09/29 22:21:25 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	del_lst_scmd(void *ptr)
 	}
 	free(scmd->argv);
 	free(scmd->red);
+	if (scmd->command_path)
+		free(scmd->command_path);
 	free(scmd);
 }
 
