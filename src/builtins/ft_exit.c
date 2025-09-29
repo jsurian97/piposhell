@@ -74,7 +74,7 @@ int	ft_exit(t_scmd *scmd)
 			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 			ft_putstr_fd(scmd->argv[1], STDERR_FILENO);
 			ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-			exit(255);
+			exit(2);
 		}
 		if (scmd->argv[2])
 		{

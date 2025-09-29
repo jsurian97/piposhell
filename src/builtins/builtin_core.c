@@ -78,7 +78,7 @@ int	is_valid_identifier(char *str)
 {
 	int	i;
 
-	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
+	if (!str || *str == '\0' || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (0);
 	i = 1;
 	while (str[i] && str[i] != '=')
