@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/28 03:50:46 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 23:09:43 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int	ft_unset(t_scmd *scmd)
 	i = 1;
 	while (scmd->argv[i])
 	{
-		if (!is_valid_identifier(scmd->argv[i]))
+		if (ft_strlen(scmd->argv[i]) == 0)
+		{
+			/* Empty string is silently ignored in bash */
+		}
+		else if (!is_valid_identifier(scmd->argv[i]))
 		{
 			ft_putstr_fd("minishell: unset: `", 2);
 			ft_putstr_fd(scmd->argv[i], 2);

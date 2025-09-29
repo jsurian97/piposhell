@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:47:01 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 21:00:39 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 23:04:18 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,21 @@ static void	expand_str_handle_quote(char *str, t_expand_view *view)
 	view->newstr = ft_strjoin_free(view->newstr, fragment);
 	free(fragment);
 	view->i++;
+}
+
+char	*expand_tilde(char *str, size_t *i, char **envp)
+{
+	char	*home_value;
+
+	if (str[*i + 1] == '/' || str[*i + 1] == '\0' || str[*i + 1] == ' ')
+	{
+		*i += 1;
+		home_value = ft_get_env_value(envp, "HOME");
+		if (home_value != NULL)
+			return (ft_strdup(home_value));
+		return (ft_strdup("~"));
+	}
+	return (ft_substr(str, (*i)++, 1));
 }
 
 char	*expand_dollar(char *str, size_t *i, char **envp, int last_status)
@@ -97,6 +112,8 @@ char	*expand_str(char *str, char **envp, int last_status)
 		}
 		if (str[v.i] == '$' && v.quote != '\'')
 			fragment = expand_dollar(str, &v.i, envp, last_status);
+		else if (str[v.i] == '~' && v.quote != '\'')
+			fragment = expand_tilde(str, &v.i, envp);
 		else
 			fragment = ft_substr(str, v.i++, 1);
 		v.newstr = ft_strjoin_free(v.newstr, fragment);

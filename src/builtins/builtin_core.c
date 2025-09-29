@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 19:32:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 23:00:03 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ int	is_valid_identifier(char *str)
 {
 	int	i;
 
-	if (!str || *str == '\0' || (!ft_isalpha(str[0]) && str[0] != '_'))
+	if (!str)
+		return (0);
+	if (*str == '\0')
+		return (0);
+	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (0);
 	i = 1;
 	while (str[i] && str[i] != '=')

@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/28 08:42:23 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/29 23:09:43 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,15 @@ int	export_with_value(t_scmd *scmd, char *arg, char *equal_pos)
 	*equal_pos = '\0';
 	var_name = arg;
 	var_value = equal_pos + 1;
+	if (ft_strlen(var_name) == 0)
+	{
+		/* Export with empty name (like "=value") should fail */
+		write(2, "minishell: export: `", 21);
+		write(2, arg, ft_strlen(arg));
+		write(2, "': not a valid identifier\n", 26);
+		*equal_pos = '=';
+		return (1);
+	}
 	if (!is_valid_identifier(var_name))
 	{
 		write(2, "minishell: export: `", 21);
@@ -94,6 +103,11 @@ int	export_without_value(t_scmd *scmd, char *arg)
 {
 	char	*existing;
 
+	if (ft_strlen(arg) == 0)
+	{
+		/* Empty string is silently ignored in bash */
+		return (0);
+	}
 	if (!is_valid_identifier(arg))
 	{
 		write(2, "minishell: export: `", 21);
