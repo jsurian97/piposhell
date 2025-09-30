@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 17:23:33 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 15:09:01 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/09/30 11:22:56 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	scmd_parse_red(t_scmd *self, t_list *token_list)
 				free(new_red_tab);
 				return (1);
 			}
+			free(token_list->token->str);
+			token_list->token->str = NULL;
 			i++;
 		}
 		token_list = token_list->next;

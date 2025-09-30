@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:36:56 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 22:21:25 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/30 11:22:56 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	del_lst_token(void *token_lst)
 void	del_lst_scmd(void *ptr)
 {
 	size_t	i;
+	size_t	j;
 	t_scmd	*scmd;
 
 	i = 0;
@@ -54,6 +55,13 @@ void	del_lst_scmd(void *ptr)
 		i++;
 	}
 	free(scmd->argv);
+	j = 0;
+	while (j < scmd->nbr_of_red)
+	{
+		if (scmd->red[j].word)
+			free(scmd->red[j].word);
+		j++;
+	}
 	free(scmd->red);
 	if (scmd->command_path)
 		free(scmd->command_path);

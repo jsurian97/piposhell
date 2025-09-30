@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:47:01 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 23:04:18 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/09/30 11:22:56 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	*expand_str_heredoc(char *str, char **envp, int last_status)
 		else
 			fragment = ft_substr(str, v.i++, 1);
 		v.newstr = ft_strjoin_free(v.newstr, fragment);
+		free(fragment);
 	}
 	free(str);
 	return (v.newstr);
