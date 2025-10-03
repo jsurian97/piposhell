@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 13:58:17 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:22:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/03 14:04:59 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 # define PARS_OPERATOR_H
 
 # include "libft.h"
-
-//liste chaine word/operator 
-
-//liste chaine classic  avec void *content et next
-//void *content contient une structure propre au .h
 
 typedef enum e_type
 {

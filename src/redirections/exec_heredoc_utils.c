@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_utils.c                                    :+:      :+:    :+:   */
+/*   exec_heredoc_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 07:45:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 19:39:00 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/03 14:25:14 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "heredoc_utils.h"
 
 int	heredoc_cleanup(int fd_pipe[2], char *line, int result)
 {

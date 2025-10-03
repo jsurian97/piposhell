@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:34:03 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 21:50:25 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/03 14:03:14 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "pars_metacar.h"
 # include "pars_operator.h"
 
-typedef struct s_shell			t_shell;
+typedef struct s_shell	t_shell;
 
 struct	s_token
 {
@@ -44,9 +44,9 @@ int		parsing_handle_line(t_shell *shell, char *line);
 int		parsing_execute(t_shell *shell, t_pars_data *data, char *line);
 
 //utils
-void	print_lst(t_list *lst);
-void	print_lst_double(t_list *lst);
-void	print_lst_scmd(t_list *lst);
+//void	print_lst(t_list *lst);
+//void	print_lst_double(t_list *lst);
+//void	print_lst_scmd(t_list *lst);
 void	free_list(t_list **lst);
 
 void	del_token(void *ptr);

@@ -6,12 +6,14 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:32:39 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 22:21:25 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/03 14:28:53 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+//cleanup fd dans init
+//cleanup heredoc utils
 void	exec_cleaning(t_exec_data *data)
 {
 	exec_cleanup_heredocs(data);
