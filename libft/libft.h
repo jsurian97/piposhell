@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 19:39:23 by jsurian           #+#    #+#             */
-/*   Updated: 2025/09/29 15:14:40 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/03 10:39:41 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ t_list	*ft_lstsplit(t_list *lst_current, int (*is_separator)(t_list *node));
 char	*ft_strremove_str(char *str, char *remove);
 void	ft_split_free(char **split);
 char	**ft_strdupdup(const char **str);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 #endif

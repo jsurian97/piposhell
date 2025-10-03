@@ -6,20 +6,11 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:47:01 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/30 11:22:56 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/03 10:38:55 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	char	*ret;
-
-	ret = ft_strjoin(s1, s2);
-	free(s1);
-	return (ret);
-}
 
 static void	expand_str_handle_quote(char *str, t_expand_view *view)
 {

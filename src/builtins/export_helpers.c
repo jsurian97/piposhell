@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 23:09:43 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/03 10:41:09 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	export_with_value(t_scmd *scmd, char *arg, char *equal_pos)
 	var_value = equal_pos + 1;
 	if (ft_strlen(var_name) == 0)
 	{
-		/* Export with empty name (like "=value") should fail */
 		write(2, "minishell: export: `", 21);
 		write(2, arg, ft_strlen(arg));
 		write(2, "': not a valid identifier\n", 26);
