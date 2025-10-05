@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 18:05:43 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/25 12:47:51 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 16:47:15 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 // Forward declaration to avoid circular dependency
 typedef struct s_scmd	t_scmd;
+
+// Code de retour spécial pour signaler la demande de sortie immédiate
+# define BUILTIN_EXIT_SIGNAL 4242
 
 // Builtins functions with unified signature - only t_scmd parameter needed
 int		ft_echo(t_scmd *scmd);

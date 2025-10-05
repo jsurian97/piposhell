@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 14:45:13 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/05 15:06:47 by jsurian          ###   ####lausanne.ch   */
+/*   Updated: 2025/10/05 16:48:42 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_red
 	int		fd_heredoc;
 	int		quoted_heredoc;
 }	t_red;
-
 typedef struct s_scmd
 {
 	char	*command_path;
@@ -65,7 +64,5 @@ typedef struct s_shell
 
 int	parsing(t_shell *shell);
 int	executing(t_shell *shell);
-
-void	shell_finish(t_shell *shell);
 
 #endif

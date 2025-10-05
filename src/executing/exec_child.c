@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:01:38 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 23:04:18 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 16:40:23 by anpayot          ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,24 @@ int	exec_child_fd_pipe(t_fd *fd)
 	return (0);
 }
 
-void	exec_child_scmd(t_scmd *self)
+void	exec_child_builtin_exit(t_scmd *self, t_exec_data *data)
+{
+	int	ret;
+
+	ret = execute_builtin(self);
+	if (ret == BUILTIN_EXIT_SIGNAL)
+		ret = self->exit_status & 0xFF;
+	exec_cleanup_fd(data);
+	ft_lstclear(&data->lst_simple_cmd, del_lst_scmd);
+	ft_split_free(data->envp);
+	rl_clear_history();
+	exit(ret);
+}
+
+void	exec_child_scmd(t_scmd *self, t_exec_data *data)
 {
 	if (is_builtin(self->argv[0]))
-		exit(execute_builtin(self));
+		exec_child_builtin_exit(self, data);
 	if (exec_is_directory(self->command_path))
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -83,6 +97,6 @@ int	exec_child(t_scmd *self, t_exec_data *data)
 		exit(0);
 	if (exec_child_set_path(self, data->envp))
 		exit(1);
-	exec_child_scmd(self);
+	exec_child_scmd(self, data);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/05 15:16:50 by jsurian          ###   ####lausanne.ch   */
+/*   Updated: 2025/10/05 16:53:03 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,29 @@ static int	check_overflow(char *str)
 // exit builtin: terminate shell; validates numeric argument and overflow
 int	ft_exit(t_scmd *scmd)
 {
-	int	status;
+	long	status;
 
-	if (scmd && scmd->is_interactive)
-		ft_putendl_fd("exit", STDOUT_FILENO);
 	status = 0;
-	if (scmd)
-		status = scmd->exit_status;
-	if (scmd && scmd->argv && scmd->argv[1])
+	if (!scmd)
+		return (BUILTIN_EXIT_SIGNAL);
+	if (scmd->is_interactive)
+		ft_putendl_fd("exit", STDOUT_FILENO);
+	status = scmd->exit_status;
+	if (scmd->argv && scmd->argv[1])
 	{
 		if (!is_numeric_string(scmd->argv[1]) || check_overflow(scmd->argv[1]))
 		{
 			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 			ft_putstr_fd(scmd->argv[1], STDERR_FILENO);
 			ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-			exit(2);
+			return (scmd->exit_status = 2, BUILTIN_EXIT_SIGNAL);
 		}
 		if (scmd->argv[2])
 		{
 			ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
-			return (1);
+			return (scmd->exit_status = 1, 1);
 		}
 		status = ft_atoi(scmd->argv[1]);
 	}
-	ft_split_free(scmd->env);
-	del_lst_scmd(scmd);
-	exit(status & 0xFF);
+	return (scmd->exit_status = (int)(status & 0xFF), BUILTIN_EXIT_SIGNAL);
 }

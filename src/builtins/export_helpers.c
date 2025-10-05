@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/03 10:41:09 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/05 17:12:55 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,34 @@ void	print_export_vars(char **sorted_env)
 	}
 }
 
+void	export_with_value_error_msg(char *str, size_t len)
+{
+	write(2, "minishell: export: `", 20);
+	write(2, str, len);
+	write(2, "': not a valid identifier\n", 26);
+}
+
 // Handle export of NAME=VALUE form
 int	export_with_value(t_scmd *scmd, char *arg, char *equal_pos)
 {
 	char	*var_name;
 	char	*var_value;
+	size_t	arg_len;
 
+	arg_len = ft_strlen(arg);
 	*equal_pos = '\0';
 	var_name = arg;
 	var_value = equal_pos + 1;
 	if (ft_strlen(var_name) == 0)
 	{
-		write(2, "minishell: export: `", 21);
-		write(2, arg, ft_strlen(arg));
-		write(2, "': not a valid identifier\n", 26);
 		*equal_pos = '=';
+		export_with_value_error_msg(arg, arg_len);
 		return (1);
 	}
 	if (!is_valid_identifier(var_name))
 	{
-		write(2, "minishell: export: `", 21);
-		write(2, arg, ft_strlen(arg));
-		write(2, "': not a valid identifier\n", 26);
 		*equal_pos = '=';
+		export_with_value_error_msg(arg, arg_len);
 		return (1);
 	}
 	scmd->env = update_env_var(scmd->env, var_name, var_value);
@@ -97,16 +102,12 @@ int	export_with_value(t_scmd *scmd, char *arg, char *equal_pos)
 	return (0);
 }
 
-// Handle export of NAME (no value given) without overwriting existing value
 int	export_without_value(t_scmd *scmd, char *arg)
 {
 	char	*existing;
 
 	if (ft_strlen(arg) == 0)
-	{
-		/* Empty string is silently ignored in bash */
 		return (0);
-	}
 	if (!is_valid_identifier(arg))
 	{
 		write(2, "minishell: export: `", 21);

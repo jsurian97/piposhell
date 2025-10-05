@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_simple_builtin.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:50:03 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:22:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 16:40:04 by anpayot          ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ int	exec_simple_builtin(t_scmd *self, t_exec_data *data)
 	if (exec_redirections(self))
 		return (exec_restore_builtin(data, 1, 1));
 	data->exit_status = execute_builtin(self);
+	if (data->exit_status == BUILTIN_EXIT_SIGNAL)
+	{
+		data->exit_status = self->exit_status & 0xFF;
+		exec_cleanup_fd(data);
+		ft_lstclear(&data->lst_simple_cmd, del_lst_scmd);
+		ft_split_free(data->envp);
+		rl_clear_history();
+		exit(data->exit_status);
+	}
 	data->envp = self->env;
 	return (exec_restore_builtin(data, data->exit_status, 0));
 }

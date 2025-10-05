@@ -6,7 +6,7 @@
 /*   By: jsurian42 <jsurian@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:34:19 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/10 22:12:43 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/05 16:41:52 by anpayot          ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ typedef enum e_typecar
 
 typedef struct s_token_view
 {
-	int		state_car;
-	int		old_state_car;
-	int		state_quote;
-	int		token_start;
-	int		token_end;
+	int	state_car;
+	int	old_state_car;
+	int	state_quote;
+	int	token_start;
+	int	token_end;
 }	t_token_view;
 
 #endif
