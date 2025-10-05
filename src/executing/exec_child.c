@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:01:38 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/05 20:58:17 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/05 23:06:29 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,21 @@ int	exec_child_fd_pipe(t_fd *fd)
 		if (dup2(fd->fd_prev, STDIN_FILENO) == -1)
 			return (1);
 		close(fd->fd_prev);
+		if (fd->fd_prev == fd->fd_pipe[0])
+			fd->fd_pipe[0] = -1;
+		fd->fd_prev = -1;
 	}
 	if (fd->fd_pipe[1] != -1)
 	{
 		if (dup2(fd->fd_pipe[1], STDOUT_FILENO) == -1)
 			return (1);
 		close(fd->fd_pipe[1]);
+		fd->fd_pipe[1] = -1;
 	}
 	if (fd->fd_pipe[0] != -1)
 	{
 		close(fd->fd_pipe[0]);
+		fd->fd_pipe[0] = -1;
 	}
 	return (0);
 }

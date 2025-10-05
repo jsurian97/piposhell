@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 10:15:20 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:22:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 23:10:25 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,20 @@ int	exec_parent(t_list *self, t_exec_data *data)
 	if (data->fd.fd_prev != -1)
 	{
 		close(data->fd.fd_prev);
+		if (data->fd.fd_prev == data->fd.fd_pipe[0])
+			data->fd.fd_pipe[0] = -1;
 		data->fd.fd_prev = -1;
 	}
 	if (data->fd.fd_pipe[1] != -1)
 	{
-		data->fd.fd_prev = data->fd.fd_pipe[0];
 		close(data->fd.fd_pipe[1]);
 		data->fd.fd_pipe[1] = -1;
 	}
-	if (self->next == NULL && data->fd.fd_pipe[0] != -1)
+	if (self->next != NULL && data->fd.fd_pipe[0] != -1)
+	{
+		data->fd.fd_prev = data->fd.fd_pipe[0];
+	}
+	else if (data->fd.fd_pipe[0] != -1)
 	{
 		close(data->fd.fd_pipe[0]);
 		data->fd.fd_pipe[0] = -1;
