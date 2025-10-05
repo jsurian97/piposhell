@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 15:46:33 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/03 10:37:24 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/05 15:12:16 by jsurian          ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ int	shell_init(t_shell *shell, char **envp)
 	return (0);
 }
 
+void	shell_finish(t_shell *shell)
+{
+	if (shell->head)
+		ft_lstclear(&shell->head, del_lst_scmd);
+	if (shell->envp)
+		ft_split_free(shell->envp);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
@@ -56,8 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		if (executing(&shell))
 			continue ;
 	}
-	if (shell.head)
-		ft_lstclear(&shell.head, del_lst_scmd);
+	shell_finish(&shell);
 	rl_clear_history();
 	return (shell.last_exit_status);
 }

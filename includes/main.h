@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 14:45:13 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 14:57:38 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/05 15:06:47 by jsurian          ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ typedef struct s_shell
 
 int	parsing(t_shell *shell);
 int	executing(t_shell *shell);
+
+void	shell_finish(t_shell *shell);
 
 #endif

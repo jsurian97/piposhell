@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 19:32:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 15:16:50 by jsurian          ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,7 @@ int	ft_exit(t_scmd *scmd)
 		}
 		status = ft_atoi(scmd->argv[1]);
 	}
+	ft_split_free(scmd->env);
+	del_lst_scmd(scmd);
 	exit(status & 0xFF);
 }
