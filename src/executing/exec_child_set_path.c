@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:03:00 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/28 03:50:46 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:59:35 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,20 @@ char	*ft_get_valid_path(t_scmd *self, char **paths_tab)
 	return (NULL);
 }
 
-void	exec_path_error(t_scmd *self)
+void	exec_path_error(t_scmd *self, t_exec_data *data)
 {
 	ft_putstr_fd("minishell: ", 2);
 	write(2, self->argv[0], ft_strlen(self->argv[0]));
 	ft_putstr_fd(": command not found\n", 2);
+	exec_cleanup_fd(data);
+	ft_lstclear(&data->lst_simple_cmd, del_lst_scmd);
+	ft_split_free(data->envp);
+	rl_clear_history();
 	exit(127);
 }
 
 //retour d'erreur si /aout et ne trouve pas lacces??
-int	exec_child_set_path(t_scmd *self, char **envp)
+int	exec_child_set_path(t_scmd *self, t_exec_data *data)
 {
 	char	*path_value;
 	char	**paths_tab;
@@ -59,7 +63,7 @@ int	exec_child_set_path(t_scmd *self, char **envp)
 			return (1);
 		return (0);
 	}
-	path_value = ft_get_env_value(envp, "PATH");
+	path_value = ft_get_env_value(data->envp, "PATH");
 	if (path_value != NULL)
 	{
 		paths_tab = ft_split(path_value, ':');
@@ -69,6 +73,6 @@ int	exec_child_set_path(t_scmd *self, char **envp)
 		ft_split_free(paths_tab);
 	}
 	if (self->command_path == NULL)
-		exec_path_error(self);
+		exec_path_error(self, data);
 	return (0);
 }

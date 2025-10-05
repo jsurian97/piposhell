@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 10:30:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 21:09:20 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 21:07:49 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ char	*parsing_get_line(t_shell *shell)
 	g_signal_received = 0;
 	line = read_shell_line(shell);
 	if (line == NULL)
+	{
+		ft_split_free(shell->envp);
 		exit(shell->last_exit_status);
+	}
 	if (g_signal_received == SIGINT)
 	{
 		shell->last_exit_status = 128 + SIGINT;

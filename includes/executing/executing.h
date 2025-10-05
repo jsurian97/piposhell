@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:25:20 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 22:21:25 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:58:27 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		exec_simple_builtin(t_scmd *self, t_exec_data *data);
 //pipeline
 int		exec_child(t_scmd *self, t_exec_data *data);
 int		exec_expansion(t_scmd *self);
-int		exec_child_set_path(t_scmd *self, char **envp);
+int		exec_child_set_path(t_scmd *self, t_exec_data *data);
 int		exec_parent(t_list *self, t_exec_data *data);
 int		exec_parent_wait(t_exec_data *data);
 size_t	exec_trim_empty_prefix(t_scmd *self);

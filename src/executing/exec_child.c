@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:01:38 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/05 16:40:23 by anpayot          ###   ####lausanne.ch   */
+/*   Updated: 2025/10/05 20:58:17 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	exec_child(t_scmd *self, t_exec_data *data)
 	self->is_interactive = data->is_interactive;
 	if (!self->argv || !self->argv[0])
 		exit(0);
-	if (exec_child_set_path(self, data->envp))
+	if (exec_child_set_path(self, data))
 		exit(1);
 	exec_child_scmd(self, data);
 	return (0);
