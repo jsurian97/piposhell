@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/11 14:54:47 by jsurian42         #+#    #+#              #
-#    Updated: 2025/10/03 14:25:36 by jsurian42        ###   ########.fr        #
+#    Updated: 2025/10/05 13:46:03 by anpayot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ EXECUTING_SOURCES := \
 
 EXPAND_SOURCES := \
 			expand_str.c\
+			expand_dollar.c\
 			expand_quotes.c\
 			expand_get_env_value.c
 
