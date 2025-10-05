@@ -17,6 +17,7 @@ int	pars_init(t_pars_data *data, char **envp, char *line)
 	data->lst_token = NULL;
 	data->lst_simple_cmd = NULL;
 	data->envp = envp;
+	data->input_line = line;
 	data->err_status = 0;
 	if (line[0] == '\0')
 	{

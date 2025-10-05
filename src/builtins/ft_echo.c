@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/28 08:42:23 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 14:16:36 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/main.h"
 
 /*
-** Check if argument is a valid -n option for echo
-** Valid: -n, -nn, -nnn, -nnnn, etc. (only 'n' characters after the dash)
-** Invalid: -na, -n1, -nX, etc. (any non-'n' character)
+** Check if argument is a valid -n(+ oters ns) option for echo
 */
 static int	is_valid_n_option(char *arg)
 {
@@ -36,7 +34,6 @@ static int	is_valid_n_option(char *arg)
 }
 
 // echo: print args separated by spaces
-// any -n / -nn / -nnn ... suppresses trailing newline
 int	ft_echo(t_scmd *scmd)
 {
 	int		i;

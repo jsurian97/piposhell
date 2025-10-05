@@ -24,6 +24,12 @@ static int	exec_is_directory(char *path)
 	return (S_ISDIR(st.st_mode));
 }
 
+static void	exec_child_print_cmd(t_scmd *self)
+{
+	ft_putstr_fd("minishell: ", 2);
+	write(2, self->argv[0], ft_strlen(self->argv[0]));
+}
+
 int	exec_child_fd_pipe(t_fd *fd)
 {
 	if (fd->fd_prev != -1)
@@ -47,24 +53,28 @@ int	exec_child_fd_pipe(t_fd *fd)
 
 void	exec_child_scmd(t_scmd *self)
 {
+	int		err;
+
 	if (is_builtin(self->argv[0]))
 		exit(execute_builtin(self));
 	if (exec_is_directory(self->command_path))
 	{
-		ft_putstr_fd("minishell: ", 2);
-		write(2, self->argv[0], ft_strlen(self->argv[0]));
+		exec_child_print_cmd(self);
 		ft_putendl_fd(": is a directory", 2);
 		exit(126);
 	}
 	execve(self->command_path, self->argv, self->env);
-	ft_putstr_fd("minishell: ", 2);
-	write(2, self->argv[0], ft_strlen(self->argv[0]));
-	ft_putstr_fd(": ", 2);
+	err = errno;
+	exec_child_print_cmd(self);
 	perror("");
-	if (errno == EACCES || errno == EISDIR)
+	if (err == ENOENT && self->command_path
+		&& access(self->command_path, F_OK) == 0)
 		exit(126);
-	else
+	if (err == EACCES || err == EISDIR || err == ENOEXEC)
+		exit(126);
+	if (err == ENOENT)
 		exit(127);
+	exit(127);
 }
 
 int	exec_child(t_scmd *self, t_exec_data *data)

@@ -12,6 +12,15 @@
 
 #include "../../includes/main.h"
 
+static int	export_print_invalid(const char *arg, size_t len)
+{
+	write(2, "minishell: export: `", sizeof("minishell: export: `") - 1);
+	if (len > 0)
+		write(2, arg, len);
+	write(2, "': not a valid identifier\n", 26);
+	return (1);
+}
+
 // Simple bubble sort of environment pointer array (in-place)
 void	sort_env_array(char **sorted_env, int count)
 {
@@ -72,25 +81,21 @@ int	export_with_value(t_scmd *scmd, char *arg, char *equal_pos)
 {
 	char	*var_name;
 	char	*var_value;
+	size_t	arg_len;
 
+	arg_len = ft_strlen(arg);
 	*equal_pos = '\0';
 	var_name = arg;
 	var_value = equal_pos + 1;
 	if (ft_strlen(var_name) == 0)
 	{
-		write(2, "minishell: export: `", 21);
-		write(2, arg, ft_strlen(arg));
-		write(2, "': not a valid identifier\n", 26);
 		*equal_pos = '=';
-		return (1);
+		return (export_print_invalid(arg, arg_len));
 	}
 	if (!is_valid_identifier(var_name))
 	{
-		write(2, "minishell: export: `", 21);
-		write(2, arg, ft_strlen(arg));
-		write(2, "': not a valid identifier\n", 26);
 		*equal_pos = '=';
-		return (1);
+		return (export_print_invalid(arg, arg_len));
 	}
 	scmd->env = update_env_var(scmd->env, var_name, var_value);
 	*equal_pos = '=';
@@ -104,15 +109,11 @@ int	export_without_value(t_scmd *scmd, char *arg)
 
 	if (ft_strlen(arg) == 0)
 	{
-		/* Empty string is silently ignored in bash */
-		return (0);
+		return (export_print_invalid(arg, 0));
 	}
 	if (!is_valid_identifier(arg))
 	{
-		write(2, "minishell: export: `", 21);
-		write(2, arg, ft_strlen(arg));
-		write(2, "': not a valid identifier\n", 26);
-		return (1);
+		return (export_print_invalid(arg, ft_strlen(arg)));
 	}
 	existing = get_env_var(scmd->env, arg);
 	if (existing != NULL)

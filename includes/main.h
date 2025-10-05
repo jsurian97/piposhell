@@ -41,6 +41,10 @@ typedef struct s_red
 	int		quoted_heredoc;
 }	t_red;
 
+
+extern t_shell	*g_shell;
+
+void		shell_cleanup(t_shell *shell);
 typedef struct s_scmd
 {
 	char	*command_path;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_expansion_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: GitHub Copilot <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 00:00:00 by GitHub Copilot   #+#    #+#             */
-/*   Updated: 2024/10/30 00:00:00 by GitHub Copilot  ###   ########.fr       */
+/*   Created: 2025/10/05 10:27:26 by anpayot           #+#    #+#             */
+/*   Updated: 2025/10/05 10:27:33 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

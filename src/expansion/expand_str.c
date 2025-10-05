@@ -26,6 +26,21 @@ static void	expand_str_handle_quote(char *str, t_expand_view *view)
 	view->i++;
 }
 
+static char	*expand_str_backslash(char *str, t_expand_view *view)
+{
+	char	next;
+
+	if (view->quote == '\'')
+		return (ft_substr(str, view->i++, 1));
+	next = str[view->i + 1];
+	if (next == '\0')
+		return (ft_substr(str, view->i++, 1));
+	if (view->quote == '"' && next != '$' && next != '"' && next != '\\')
+		return (ft_substr(str, view->i++, 1));
+	view->i += 2;
+	return (ft_substr(str, view->i - 1, 1));
+}
+
 char	*expand_tilde(char *str, size_t *i, char **envp)
 {
 	char	*home_value;
@@ -41,30 +56,21 @@ char	*expand_tilde(char *str, size_t *i, char **envp)
 	return (ft_substr(str, (*i)++, 1));
 }
 
-char	*expand_dollar(char *str, size_t *i, char **envp, int last_status)
+static char	*expand_str_fragment(char *str, t_expand_view *view,
+		char **envp, int last_status)
 {
-	t_expand_dollar	v;
-
-	*i += 1;
-	if (str[*i] == '?')
+	if (str[view->i] == '\'' || str[view->i] == '"')
 	{
-		*i += 1;
-		v.result = ft_itoa(last_status);
-		return (v.result);
+		expand_str_handle_quote(str, view);
+		return (NULL);
 	}
-	if (ft_isalnum(str[*i]) || str[*i] == '_')
-	{
-		v.start = *i;
-		while (ft_isalnum(str[*i]) || str[*i] == '_')
-			*i += 1;
-		v.name = ft_substr(str, v.start, *i - v.start);
-		v.value = ft_get_env_value(envp, v.name);
-		free(v.name);
-		if (v.value != NULL)
-			return (ft_strdup(v.value));
-		return (ft_strdup(""));
-	}
-	return (ft_strdup("$"));
+	if (str[view->i] == '\\')
+		return (expand_str_backslash(str, view));
+	if (str[view->i] == '$' && view->quote != '\'')
+		return (expand_dollar(str, &view->i, envp, last_status));
+	if (str[view->i] == '~' && view->quote != '\'')
+		return (expand_tilde(str, &view->i, envp));
+	return (ft_substr(str, view->i++, 1));
 }
 
 char	*expand_str_heredoc(char *str, char **envp, int last_status)
@@ -97,17 +103,9 @@ char	*expand_str(char *str, char **envp, int last_status)
 	v.newstr = ft_strdup("");
 	while (str[v.i])
 	{
-		if (str[v.i] == '\'' || str[v.i] == '"')
-		{
-			expand_str_handle_quote(str, &v);
+		fragment = expand_str_fragment(str, &v, envp, last_status);
+		if (fragment == NULL)
 			continue ;
-		}
-		if (str[v.i] == '$' && v.quote != '\'')
-			fragment = expand_dollar(str, &v.i, envp, last_status);
-		else if (str[v.i] == '~' && v.quote != '\'')
-			fragment = expand_tilde(str, &v.i, envp);
-		else
-			fragment = ft_substr(str, v.i++, 1);
 		v.newstr = ft_strjoin_free(v.newstr, fragment);
 		free(fragment);
 	}

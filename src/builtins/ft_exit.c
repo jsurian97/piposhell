@@ -57,31 +57,38 @@ static int	check_overflow(char *str)
 	return (0);
 }
 
+static void	exit_with_cleanup(int status)
+{
+	if (g_shell)
+		shell_cleanup(g_shell);
+	exit(status & 0xFF);
+}
+
 // exit builtin: terminate shell; validates numeric argument and overflow
 int	ft_exit(t_scmd *scmd)
 {
 	int	status;
 
-	if (scmd && scmd->is_interactive)
-		ft_putendl_fd("exit", STDOUT_FILENO);
 	status = 0;
 	if (scmd)
 		status = scmd->exit_status;
-	if (scmd && scmd->argv && scmd->argv[1])
+	if (scmd && scmd->is_interactive)
+		ft_putendl_fd("exit", STDOUT_FILENO);
+	if (!scmd || !scmd->argv || !scmd->argv[1])
+		exit_with_cleanup(status);
+	if (!is_numeric_string(scmd->argv[1]) || check_overflow(scmd->argv[1]))
 	{
-		if (!is_numeric_string(scmd->argv[1]) || check_overflow(scmd->argv[1]))
-		{
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-			ft_putstr_fd(scmd->argv[1], STDERR_FILENO);
-			ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-			exit(2);
-		}
-		if (scmd->argv[2])
-		{
-			ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
-			return (1);
-		}
-		status = ft_atoi(scmd->argv[1]);
+		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd(scmd->argv[1], STDERR_FILENO);
+		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+		exit_with_cleanup(255);
 	}
-	exit(status & 0xFF);
+	if (scmd->argv[2])
+	{
+		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
+		return (1);
+	}
+	status = ft_atoi(scmd->argv[1]);
+	exit_with_cleanup(status);
+	return (0);
 }

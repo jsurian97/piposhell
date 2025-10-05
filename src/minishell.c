@@ -12,6 +12,33 @@
 
 #include "main.h"
 
+t_shell	*g_shell = NULL;
+
+void	shell_cleanup(t_shell *shell)
+{
+	static int	history_cleared = 0;
+
+	if (!shell)
+		return ;
+	if (shell->head)
+	{
+		ft_lstclear(&shell->head, del_lst_scmd);
+		shell->head = NULL;
+	}
+	if (shell->envp)
+	{
+		ft_split_free(shell->envp);
+		shell->envp = NULL;
+	}
+	if (!history_cleared)
+	{
+		rl_clear_history();
+		history_cleared = 1;
+	}
+	if (g_shell == shell)
+		g_shell = NULL;
+}
+
 int	shell_init(t_shell *shell, char **envp)
 {
 	int		shell_lvl;
@@ -48,6 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (shell_init(&shell, envp))
 		return (1);
+	g_shell = &shell;
 	signals_set_interactive();
 	while (1)
 	{
@@ -56,8 +84,6 @@ int	main(int argc, char **argv, char **envp)
 		if (executing(&shell))
 			continue ;
 	}
-	if (shell.head)
-		ft_lstclear(&shell.head, del_lst_scmd);
-	rl_clear_history();
+	shell_cleanup(&shell);
 	return (shell.last_exit_status);
 }

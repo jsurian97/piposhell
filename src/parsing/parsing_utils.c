@@ -45,7 +45,10 @@ char	*parsing_get_line(t_shell *shell)
 	g_signal_received = 0;
 	line = read_shell_line(shell);
 	if (line == NULL)
+	{
+		shell_cleanup(shell);
 		exit(shell->last_exit_status);
+	}
 	if (g_signal_received == SIGINT)
 	{
 		shell->last_exit_status = 128 + SIGINT;

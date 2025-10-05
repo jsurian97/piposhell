@@ -24,6 +24,7 @@ static char	*get_oldpwd_directory(t_scmd *scmd)
 static int	handle_cd_dash(t_scmd *scmd, char *old_pwd)
 {
 	char	*oldpwd_path;
+	char	*print_path;
 
 	oldpwd_path = get_oldpwd_directory(scmd);
 	if (!oldpwd_path)
@@ -31,9 +32,16 @@ static int	handle_cd_dash(t_scmd *scmd, char *old_pwd)
 		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
 		return (1);
 	}
-	if (cd_to_path(scmd, oldpwd_path, old_pwd) != 0)
+	print_path = ft_strdup(oldpwd_path);
+	if (!print_path)
 		return (1);
-	ft_putendl_fd(oldpwd_path, 1);
+	if (cd_to_path(scmd, oldpwd_path, old_pwd) != 0)
+	{
+		free(print_path);
+		return (1);
+	}
+	ft_putendl_fd(print_path, 1);
+	free(print_path);
 	return (0);
 }
 

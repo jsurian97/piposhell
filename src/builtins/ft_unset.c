@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 23:09:43 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 10:19:11 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,10 @@ int	ft_unset(t_scmd *scmd)
 	{
 		if (ft_strlen(scmd->argv[i]) == 0)
 		{
-			/* Empty string is silently ignored in bash */
+			i++;
+			continue ;
 		}
-		else if (!is_valid_identifier(scmd->argv[i]))
-		{
-			ft_putstr_fd("minishell: unset: `", 2);
-			ft_putstr_fd(scmd->argv[i], 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
-			ret = 1;
-		}
-		else
+		if (is_valid_identifier(scmd->argv[i]))
 			scmd->env = remove_env_var(scmd->env, scmd->argv[i]);
 		i++;
 	}

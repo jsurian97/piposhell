@@ -13,12 +13,14 @@
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
+# include <stddef.h>
+
 typedef struct s_expand_dollar
 {
 	char	*result;
 	char	*name;
 	char	*value;
-	char	start;
+	size_t	start;
 }	t_expand_dollar;
 
 typedef struct s_expand_view
@@ -29,8 +31,18 @@ typedef struct s_expand_view
 	char	quote;
 }	t_expand_view;
 
+typedef struct s_quote_clean
+{
+	char	*str;
+	char	*clean;
+	size_t	i;
+	size_t	j;
+	char	quote;
+}t_quote_clean;
+
 char	*expand_str(char *str, char **envp, int last_status);
 char	*expand_str_heredoc(char *str, char **envp, int last_status);
+char	*expand_dollar(char *str, size_t *i, char **envp, int last_status);
 
 int		expand_quotes_check(t_token *token);
 char	*expand_remove_quote(char *str);

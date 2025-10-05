@@ -100,6 +100,15 @@ void	clear_simple_cmd_mixed(t_list **lst)
 	}
 	*lst = NULL;
 }
+
+void	parsing_print_syntax_error_line(const char *line)
+{
+	if (!line || line[0] == '\0')
+		return ;
+	ft_putstr_fd("minishell: `", 2);
+	write(2, line, ft_strlen(line));
+	ft_putstr_fd("'\n", 2);
+}
 //
 //void	print_lst_scmd(t_list *lst)
 //{

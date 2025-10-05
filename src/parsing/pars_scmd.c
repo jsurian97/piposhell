@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_scmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:51:01 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:22:45 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/05 12:34:43 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_scmd	*scmd_create(t_list *token_list, t_pars_data *data)
 {
 	t_scmd	*new_scmd;
 
-	(void)data;
+	// (void)data;
 	new_scmd = malloc(sizeof(t_scmd));
 	if (new_scmd == NULL)
 		return (NULL);
@@ -33,7 +33,7 @@ t_scmd	*scmd_create(t_list *token_list, t_pars_data *data)
 	new_scmd->command_path = NULL;
 	new_scmd->exit_status = 0;
 	new_scmd->is_interactive = 0;
-	if (scmd_parse_red(new_scmd, token_list))
+	if (scmd_parse_red(new_scmd, token_list, data))
 		return (scmd_abort(new_scmd));
 	if (scmd_parse_argv(new_scmd, token_list))
 		return (scmd_abort(new_scmd));

@@ -44,7 +44,13 @@ static int	pars_operator_handle_node(t_pars_data *data, t_list **prev,
 	if ((*current)->token->type == METACAR)
 		return (update_node_op(prev, current, data));
 	if ((*current)->token->type == ALPHABET)
-		return (expand_quotes_check((*current)->token));
+	{
+		if (expand_quotes_check((*current)->token))
+		{
+			data->err_status = 2;
+			return (1);
+		}
+	}
 	return (0);
 }
 

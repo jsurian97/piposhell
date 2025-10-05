@@ -12,7 +12,7 @@
 
 #include "main.h"
 
-int	red_syntax_error(char *token, t_scmd *self)
+int	red_syntax_error(char *token, t_pars_data *data)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	if (token)
@@ -20,21 +20,22 @@ int	red_syntax_error(char *token, t_scmd *self)
 	else
 		ft_putstr_fd("newline", 2);
 	ft_putstr_fd("'\n", 2);
-	(void)self;
+	parsing_print_syntax_error_line(data->input_line);
+	data->err_status = 2;
 	return (1);
 }
 
 // Creates one redir from a redir token node
-int	red_from_red_node(t_red *self, t_list *red_node, t_scmd *scmd)
+int	red_from_red_node(t_red *self, t_list *red_node, t_pars_data *data)
 {
 	self->type = red_node->token->type;
 	if (!red_node->next)
 	{
-		return (red_syntax_error(NULL, scmd));
+		return (red_syntax_error(NULL, data));
 	}
 	else if (red_node->next->token->type <= PIPE)
 	{
-		return (red_syntax_error(red_node->next->token->str, scmd));
+		return (red_syntax_error(red_node->next->token->str, data));
 	}
 	self->word = red_node->next->token->str;
 	if (red_node->token->type == RED_HEREDOC
@@ -69,7 +70,7 @@ void	scmd_count_red(t_scmd *self, t_list *token_list)
 }
 
 // Create an array of redir
-int	scmd_parse_red(t_scmd *self, t_list *token_list)
+int	scmd_parse_red(t_scmd *self, t_list *token_list, t_pars_data *data)
 {
 	t_red	*new_red_tab;
 	size_t	i;
@@ -83,7 +84,7 @@ int	scmd_parse_red(t_scmd *self, t_list *token_list)
 	{
 		if (token_is_red(token_list->token))
 		{
-			if (red_from_red_node(&new_red_tab[i], token_list, self))
+			if (red_from_red_node(&new_red_tab[i], token_list, data))
 			{
 				free(new_red_tab);
 				return (1);

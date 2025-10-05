@@ -29,6 +29,7 @@ typedef struct s_pars_data
 	t_list	*lst_token;
 	t_list	*lst_simple_cmd;
 	char	**envp;
+	char	*input_line;
 	int		err_status; // 0 ok, otherwise propagate to shell->last_exit_status
 }	t_pars_data;
 
@@ -38,6 +39,8 @@ int		pars_operator(t_pars_data *data);
 int		pars_space(t_pars_data *data);
 int		pars_pipe_split(t_pars_data *data);
 int		pars_scmd(t_pars_data *data);
+
+void	parsing_print_syntax_error_line(const char *line);
 
 char	*parsing_get_line(t_shell *shell);
 int		parsing_handle_line(t_shell *shell, char *line);
@@ -56,7 +59,7 @@ void	del_lst_scmd(void *ptr);
 void	clear_simple_cmd_mixed(t_list **lst);
 
 //scmd fill
-int		scmd_parse_red(t_scmd *self, t_list *token_list);
+int		scmd_parse_red(t_scmd *self, t_list *token_list, t_pars_data *data);
 int		scmd_parse_argv(t_scmd *self, t_list *token_list);
 void	scmd_parse_command_path(t_scmd *self);
 void	scmd_parse_env(t_scmd *self, char **envp);

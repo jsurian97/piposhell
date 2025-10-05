@@ -47,6 +47,7 @@ static int	remove_trailing_pipe(t_list **sublist)
 static int	report_pipe_syntax(t_pars_data *data)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+	parsing_print_syntax_error_line(data->input_line);
 	ft_lstclear(&data->lst_simple_cmd, del_lst_token);
 	data->err_status = 2;
 	return (1);
