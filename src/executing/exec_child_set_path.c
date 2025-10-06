@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:03:00 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/05 20:59:35 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/06 18:01:26 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	exec_path_error(t_scmd *self, t_exec_data *data)
 	ft_putstr_fd("minishell: ", 2);
 	write(2, self->argv[0], ft_strlen(self->argv[0]));
 	ft_putstr_fd(": command not found\n", 2);
-	exec_cleanup_fd(data);
-	ft_lstclear(&data->lst_simple_cmd, del_lst_scmd);
-	ft_split_free(data->envp);
-	rl_clear_history();
+	exec_cleanup_all(self, data);
 	exit(127);
 }
 

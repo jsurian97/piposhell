@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 17:23:33 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/30 11:22:56 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/06 17:13:17 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	red_from_red_node(t_red *self, t_list *red_node, t_scmd *scmd)
 		return (red_syntax_error(red_node->next->token->str, scmd));
 	}
 	self->word = red_node->next->token->str;
+	self->fd_heredoc = -1;
 	if (red_node->token->type == RED_HEREDOC
 		&& (ft_strchr(self->word, '\'')
 			|| ft_strchr(self->word, '"')))

@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:17:16 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:27:49 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/06 17:52:38 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	exec_red_heredoc(t_red *red)
 		return (1);
 	}
 	close(red->fd_heredoc);
+	red->fd_heredoc = -1;
 	return (0);
 }
 

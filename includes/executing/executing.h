@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:25:20 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/05 20:58:27 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/06 18:04:17 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct s_exec_data
 
 int		exec_init(t_exec_data *data, t_list *head, char **envp,
 			int last_exit_status);
-void	exec_cleanup_fd(t_exec_data *data);
+void	exec_cleanup_fd(t_scmd *self, t_exec_data *data);
+void	exec_cleanup_all(t_scmd *self, t_exec_data *data);
 int		exec_pipeline(t_exec_data *data);
 int		exec_simple_builtin(t_scmd *self, t_exec_data *data);
 

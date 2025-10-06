@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:01:38 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/05 23:06:29 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/06 18:00:19 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ void	exec_child_builtin_exit(t_scmd *self, t_exec_data *data)
 	ret = execute_builtin(self);
 	if (ret == BUILTIN_EXIT_SIGNAL)
 		ret = self->exit_status & 0xFF;
-	exec_cleanup_fd(data);
-	ft_lstclear(&data->lst_simple_cmd, del_lst_scmd);
-	ft_split_free(data->envp);
-	rl_clear_history();
+	exec_cleanup_all(self, data);
 	exit(ret);
 }
 
@@ -95,12 +92,18 @@ int	exec_child(t_scmd *self, t_exec_data *data)
 		exit(1);
 	if (exec_expansion(self))
 		exit(1);
-	if (exec_redirections(self))
-		exit(1);
 	self->is_interactive = data->is_interactive;
 	if (!self->argv || !self->argv[0])
+	{
+		exec_cleanup_all(self, data);
 		exit(0);
+	}
 	if (exec_child_set_path(self, data))
+	{
+		exec_cleanup_all(self, data);
+		exit(1);
+	}
+	if (exec_redirections(self))
 		exit(1);
 	exec_child_scmd(self, data);
 	return (0);

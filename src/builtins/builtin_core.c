@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 23:00:03 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/06 16:01:26 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (0);
-	if (ft_strncmp(cmd, "echo", 4) == 0)
+	if (ft_strncmp(cmd, "echo", 5) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "cd", 2) == 0)
+	if (ft_strncmp(cmd, "cd", 3) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "pwd", 3) == 0)
+	if (ft_strncmp(cmd, "pwd", 4) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "export", 6) == 0)
+	if (ft_strncmp(cmd, "export", 7) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "unset", 5) == 0)
+	if (ft_strncmp(cmd, "unset", 6) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "env", 3) == 0)
+	if (ft_strncmp(cmd, "env", 4) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "exit", 4) == 0)
+	if (ft_strncmp(cmd, "exit", 5) == 0)
 		return (1);
 	return (0);
 }

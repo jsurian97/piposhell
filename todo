@@ -1,3 +1,5 @@
-faut il close les fd 0 1 et 2 ?
-si exit | exit ou si a | a -> close dans exit + close dans child set path
-si le bsn
+
+cd - 
+me/..
+
+<< eof | << eof
