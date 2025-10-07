@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:01:38 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/06 18:00:19 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/07 11:34:29 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	exec_child_scmd(t_scmd *self, t_exec_data *data)
 	write(2, self->argv[0], ft_strlen(self->argv[0]));
 	ft_putstr_fd(": ", 2);
 	perror("");
+	exec_cleanup_all(self, data);
 	if (errno == EACCES || errno == EISDIR)
 		exit(126);
 	else
@@ -104,7 +105,10 @@ int	exec_child(t_scmd *self, t_exec_data *data)
 		exit(1);
 	}
 	if (exec_redirections(self))
+	{
+		exec_cleanup_all(self, data);
 		exit(1);
+	}
 	exec_child_scmd(self, data);
 	return (0);
 }

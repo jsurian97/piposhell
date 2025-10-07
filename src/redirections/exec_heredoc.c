@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:54:28 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 15:10:28 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/07 11:46:56 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,19 @@ int	exec_heredoc_get_fd(t_red *red, char **envp, int exit_status)
 	return (fd_pipe[0]);
 }
 
-int	exec_heredoc_set_fd(t_red *red, char **envp, int exit_status)
+int	exec_heredoc_set_fd(t_red *red, t_scmd *self)
 {
 	if (red->type == RED_HEREDOC)
 	{
-		red->fd_heredoc = exec_heredoc_get_fd(red, envp, exit_status);
+		red->fd_heredoc = exec_heredoc_get_fd(red, self->env,
+				self->exit_status);
 		if (red->fd_heredoc == -1)
 			return (1);
+		if (!self->argv[0] || !self->argv)
+		{
+			close(red->fd_heredoc);
+			red->fd_heredoc = -1;
+		}
 	}
 	return (0);
 }
@@ -54,7 +60,7 @@ int	exec_heredoc_set(t_scmd *self)
 	i = 0;
 	while (i < self->nbr_of_red)
 	{
-		if (exec_heredoc_set_fd(&self->red[i], self->env, self->exit_status))
+		if (exec_heredoc_set_fd(&self->red[i], self))
 			return (1);
 		i++;
 	}
