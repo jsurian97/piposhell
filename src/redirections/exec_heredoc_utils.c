@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 07:45:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/03 14:25:14 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/08 22:08:35 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	heredoc_write_and_free(int write_fd, char *line)
 	free(line);
 }
 
+static int	heredoc_abort_signal(t_heredoc_ctx *ctx, char *line)
+{
+	return (heredoc_cleanup(ctx->fd_pipe, line, -1));
+}
+
 void	exec_cleanup_heredocs(t_exec_data *data)
 {
 	t_list	*lst_current;
@@ -76,14 +81,10 @@ int	heredoc_collect_lines(t_red *red, t_heredoc_ctx *ctx)
 	while (1)
 	{
 		if (g_signal_received == SIGINT)
-			return (heredoc_cleanup(ctx->fd_pipe, NULL, -1));
+			return (heredoc_abort_signal(ctx, NULL));
 		line = readline("> ");
 		if (g_signal_received == SIGINT)
-		{
-			if (line)
-				free(line);
-			return (heredoc_cleanup(ctx->fd_pipe, NULL, -1));
-		}
+			return (heredoc_abort_signal(ctx, line));
 		if (line == NULL)
 			return (heredoc_cleanup(ctx->fd_pipe, NULL, -1));
 		if (ft_strlen(line) == ctx->delim_len

@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signals_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 07:41:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/08 13:27:25 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/08 22:08:35 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+#include <sys/ioctl.h>
 #include "main.h"
 
 #ifdef rl_replace_line
@@ -29,12 +31,14 @@ static void	clear_heredoc_line(void)
 
 static void	sigint_heredoc(int sig)
 {
+	char	newline;
+
 	g_signal_received = sig;
-	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	clear_heredoc_line();
-	rl_redisplay();
-	rl_done = 1;
+	newline = '\n';
+	if (isatty(STDIN_FILENO))
+		ioctl(STDIN_FILENO, TIOCSTI, &newline);
 }
 
 void	signals_set_heredoc(void)
