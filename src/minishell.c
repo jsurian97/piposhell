@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 15:46:33 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/08 10:08:44 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/08 13:35:20 by jsurian          ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	shell_init(t_shell *shell, char **envp)
 	t_init_view	v;
 
 	shell->head = NULL;
-	if (shell->envp != NULL)
+	if (envp && envp[0])
 	{
 		shell->envp = ft_strdupdup((const char **)envp);
 		if (shell->envp == NULL)
