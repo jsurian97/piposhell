@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 07:41:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 15:13:16 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/08 13:27:25 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	sigint_heredoc(int sig)
 	rl_on_new_line();
 	clear_heredoc_line();
 	rl_redisplay();
+	rl_done = 1;
 }
 
 void	signals_set_heredoc(void)
