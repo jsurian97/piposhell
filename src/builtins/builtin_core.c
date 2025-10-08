@@ -6,11 +6,11 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/06 16:01:26 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/08 09:38:26 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
+#include "main.h"
 
 // Return 1 if command name matches a supported builtin
 int	is_builtin(char *cmd)

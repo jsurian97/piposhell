@@ -6,13 +6,11 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/05 16:53:03 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 09:39:47 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
-#include <stdlib.h>
-#include <limits.h>
+#include "main.h"
 
 // Return 1 if string is [sign] + digits
 static int	is_numeric_string(char *str)

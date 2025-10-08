@@ -6,13 +6,11 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/29 15:02:57 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/08 09:38:39 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
-#include <errno.h>
-#include <string.h>
+#include "main.h"
 
 static int	cd_error_message(char *arg)
 {

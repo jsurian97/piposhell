@@ -6,12 +6,11 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/28 08:42:23 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 09:38:12 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
-#include <unistd.h>
+#include "main.h"
 
 // pwd builtin: print current working directory
 int	ft_pwd(t_scmd *scmd)

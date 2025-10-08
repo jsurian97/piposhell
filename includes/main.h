@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 14:45:13 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/05 16:48:42 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 10:06:21 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <limits.h>
 
 # include "libft.h"
 
@@ -32,6 +33,13 @@
 # include "builtins.h"
 # include "redirections.h"
 # include "signals.h"
+
+typedef struct s_init_view
+{
+	int		shell_lvl;
+	char	*shlvl_str;
+	char	**temp;
+}	t_init_view;
 
 typedef struct s_red
 {

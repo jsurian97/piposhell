@@ -4,4 +4,4 @@ valgrind \
         --show-leak-kinds=all \
         --suppressions=./readline.supp \
         --track-fds=yes \
-        ./minishell 
+        env -i ./minishell 

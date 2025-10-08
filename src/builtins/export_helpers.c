@@ -6,11 +6,11 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:00:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/05 17:12:55 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 09:39:02 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
+#include "main.h"
 
 // Simple bubble sort of environment pointer array (in-place)
 void	sort_env_array(char **sorted_env, int count)

@@ -6,11 +6,11 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 22:40:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/25 12:47:51 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 09:38:51 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
+#include "main.h"
 
 // Count how many variables remain after removing target
 static int	count_remaining_vars(char **env, char *var_name, int var_len)

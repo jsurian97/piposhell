@@ -6,13 +6,11 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/09/26 09:04:50 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 09:40:04 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
-#include <stdio.h>
-#include <unistd.h>
+#include "main.h"
 
 // Print environment variables in sorted order (declare -x style)
 static void	print_sorted_export_env(char **env)

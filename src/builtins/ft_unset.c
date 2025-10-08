@@ -6,13 +6,11 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 21:15:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/05 17:00:34 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 09:40:23 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/main.h"
-#include <stdio.h>
-#include <unistd.h>
+#include "main.h"
 
 void	ft_unset_error_msg(char *str)
 {
