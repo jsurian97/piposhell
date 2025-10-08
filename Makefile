@@ -6,7 +6,7 @@
 #    By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/11 14:54:47 by jsurian42         #+#    #+#              #
-#    Updated: 2025/10/03 14:25:36 by jsurian42        ###   ########.fr        #
+#    Updated: 2025/10/08 14:41:41 by jsurian42        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ EXECUTING_SOURCES := \
 EXPAND_SOURCES := \
 			expand_str.c\
 			expand_quotes.c\
-			expand_get_env_value.c
+			expand_get_env_value.c\
+			expand_space.c
 
 REDIRECTIONS_SOURCES := \
 			exec_redirections.c \

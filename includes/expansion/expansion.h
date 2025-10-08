@@ -6,12 +6,21 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:48:55 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/09/29 10:12:16 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/08 15:03:39 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
+
+typedef struct s_expand_space
+{
+	char	*result;
+	char	**split;
+	char	*temp;
+	int		i;
+	int		first;
+}	t_expand_space;
 
 typedef struct s_expand_dollar
 {
@@ -31,6 +40,7 @@ typedef struct s_expand_view
 
 char	*expand_str(char *str, char **envp, int last_status);
 char	*expand_str_heredoc(char *str, char **envp, int last_status);
+char	*expand_space(const char *value, int double_quote);
 
 int		expand_quotes_check(t_token *token);
 char	*expand_remove_quote(char *str);

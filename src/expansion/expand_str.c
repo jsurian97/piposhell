@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:47:01 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/03 10:38:55 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/08 15:01:19 by jsurian42        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*expand_tilde(char *str, size_t *i, char **envp)
 	return (ft_substr(str, (*i)++, 1));
 }
 
-char	*expand_dollar(char *str, size_t *i, char **envp, int last_status)
+char	*expand_dollar(char *str, size_t *i, char **envp, int last_status, int double_quote)
 {
 	t_expand_dollar	v;
 
@@ -60,9 +60,7 @@ char	*expand_dollar(char *str, size_t *i, char **envp, int last_status)
 		v.name = ft_substr(str, v.start, *i - v.start);
 		v.value = ft_get_env_value(envp, v.name);
 		free(v.name);
-		if (v.value != NULL)
-			return (ft_strdup(v.value));
-		return (ft_strdup(""));
+		return (expand_space(v.value, double_quote));
 	}
 	return (ft_strdup("$"));
 }
@@ -77,7 +75,7 @@ char	*expand_str_heredoc(char *str, char **envp, int last_status)
 	while (str[v.i])
 	{
 		if (str[v.i] == '$')
-			fragment = expand_dollar(str, &v.i, envp, last_status);
+			fragment = expand_dollar(str, &v.i, envp, last_status, 1);
 		else
 			fragment = ft_substr(str, v.i++, 1);
 		v.newstr = ft_strjoin_free(v.newstr, fragment);
@@ -103,7 +101,7 @@ char	*expand_str(char *str, char **envp, int last_status)
 			continue ;
 		}
 		if (str[v.i] == '$' && v.quote != '\'')
-			fragment = expand_dollar(str, &v.i, envp, last_status);
+			fragment = expand_dollar(str, &v.i, envp, last_status, v.quote == '"');
 		else if (str[v.i] == '~' && v.quote != '\'')
 			fragment = expand_tilde(str, &v.i, envp);
 		else
