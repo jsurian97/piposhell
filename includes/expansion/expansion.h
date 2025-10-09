@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:48:55 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/08 15:03:39 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/09 11:14:45 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_expand_dollar
 
 typedef struct s_expand_view
 {
+	char	*fragment;
+	char	*raw;
 	char	*newstr;
 	char	*temp;
 	size_t	i;
@@ -41,6 +43,7 @@ typedef struct s_expand_view
 char	*expand_str(char *str, char **envp, int last_status);
 char	*expand_str_heredoc(char *str, char **envp, int last_status);
 char	*expand_space(const char *value, int double_quote);
+char	*ft_strjoin_free2(char *s1, char *s2);
 
 int		expand_quotes_check(t_token *token);
 char	*expand_remove_quote(char *str);

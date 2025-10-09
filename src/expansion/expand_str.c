@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:47:01 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/08 15:01:19 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/09 11:14:55 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	*expand_tilde(char *str, size_t *i, char **envp)
 	return (ft_substr(str, (*i)++, 1));
 }
 
-char	*expand_dollar(char *str, size_t *i, char **envp, int last_status, int double_quote)
+char	*expand_dollar(char *str, size_t *i, char **envp,
+		int last_status)
 {
 	t_expand_dollar	v;
 
@@ -60,7 +61,9 @@ char	*expand_dollar(char *str, size_t *i, char **envp, int last_status, int doub
 		v.name = ft_substr(str, v.start, *i - v.start);
 		v.value = ft_get_env_value(envp, v.name);
 		free(v.name);
-		return (expand_space(v.value, double_quote));
+		if (v.value == NULL)
+			return (ft_strdup(""));
+		return (ft_strdup(v.value));
 	}
 	return (ft_strdup("$"));
 }
@@ -69,13 +72,18 @@ char	*expand_str_heredoc(char *str, char **envp, int last_status)
 {
 	t_expand_view	v;
 	char			*fragment;
+	char			*raw;
 
 	v.i = 0;
 	v.newstr = ft_strdup("");
 	while (str[v.i])
 	{
 		if (str[v.i] == '$')
-			fragment = expand_dollar(str, &v.i, envp, last_status, 1);
+		{
+			raw = expand_dollar(str, &v.i, envp, last_status);
+			fragment = expand_space(raw, 1);
+			free(raw);
+		}
 		else
 			fragment = ft_substr(str, v.i++, 1);
 		v.newstr = ft_strjoin_free(v.newstr, fragment);
@@ -88,7 +96,6 @@ char	*expand_str_heredoc(char *str, char **envp, int last_status)
 char	*expand_str(char *str, char **envp, int last_status)
 {
 	t_expand_view	v;
-	char			*fragment;
 
 	v.i = 0;
 	v.quote = 0;
@@ -101,14 +108,16 @@ char	*expand_str(char *str, char **envp, int last_status)
 			continue ;
 		}
 		if (str[v.i] == '$' && v.quote != '\'')
-			fragment = expand_dollar(str, &v.i, envp, last_status, v.quote == '"');
+		{
+			v.raw = expand_dollar(str, &v.i, envp, last_status);
+			v.fragment = expand_space(v.raw, v.quote == '"');
+			free(v.raw);
+		}
 		else if (str[v.i] == '~' && v.quote != '\'')
-			fragment = expand_tilde(str, &v.i, envp);
+			v.fragment = expand_tilde(str, &v.i, envp);
 		else
-			fragment = ft_substr(str, v.i++, 1);
-		v.newstr = ft_strjoin_free(v.newstr, fragment);
-		free(fragment);
+			v.fragment = ft_substr(str, v.i++, 1);
+		v.newstr = ft_strjoin_free2(v.newstr, v.fragment);
 	}
-	free(str);
-	return (v.newstr);
+	return (free(str), v.newstr);
 }
