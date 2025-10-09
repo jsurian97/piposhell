@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 07:45:00 by anpayot           #+#    #+#             */
-/*   Updated: 2025/10/08 22:08:35 by anpayot          ###   ########.fr       */
+/*   Updated: 2025/10/09 12:19:14 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ int	heredoc_expand_line(t_red *red, char **line, char **envp,
 	}
 	*line = expanded;
 	return (0);
-}
-
-void	heredoc_write_and_free(int write_fd, char *line)
-{
-	write(write_fd, line, ft_strlen(line));
-	write(write_fd, "\n", 1);
-	free(line);
 }
 
 static int	heredoc_abort_signal(t_heredoc_ctx *ctx, char *line)
@@ -92,7 +85,9 @@ int	heredoc_collect_lines(t_red *red, t_heredoc_ctx *ctx)
 			break ;
 		if (heredoc_expand_line(red, &line, ctx->envp, ctx->exit_status))
 			return (heredoc_cleanup(ctx->fd_pipe, NULL, 1));
-		heredoc_write_and_free(ctx->fd_pipe[1], line);
+		write(ctx->fd_pipe[1], line, ft_strlen(line));
+		write(ctx->fd_pipe[1], "\n", 1);
+		free(line);
 	}
 	free(line);
 	return (0);

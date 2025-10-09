@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpayot <anpayot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:30:58 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/03 14:08:27 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/09 12:19:14 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	exec_cleanup_heredocs(t_exec_data *data);
 int		heredoc_cleanup(int fd_pipe[2], char *line, int result);
 int		heredoc_expand_line(t_red *red, char **line,
 			char **envp, int exit_status);
-void	heredoc_write_and_free(int write_fd, char *line);
 void	exec_cleanup_heredocs(t_exec_data *data);
 int		heredoc_collect_lines(t_red *red, t_heredoc_ctx *ctx);
 
