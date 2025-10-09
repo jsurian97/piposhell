@@ -6,7 +6,7 @@
 /*   By: anpayot <anpayot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:01:38 by jsurian42         #+#    #+#             */
-/*   Updated: 2025/10/07 11:34:29 by jsurian42        ###   ########.fr       */
+/*   Updated: 2025/10/09 15:29:08 by anpayot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	exec_child_builtin_exit(t_scmd *self, t_exec_data *data)
 	ret = execute_builtin(self);
 	if (ret == BUILTIN_EXIT_SIGNAL)
 		ret = self->exit_status & 0xFF;
+	data->envp = self->env;
 	exec_cleanup_all(self, data);
 	exit(ret);
 }
